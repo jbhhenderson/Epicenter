@@ -1,0 +1,30 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "username": "jbeezman",
+            "email": "jbhhenderson@gmail.com",
+            "password": "password"
+        }
+    ],
+    "libraryGames": [
+        {
+            "id": 1,
+            "userId": 1,
+            "gameId": 1942,
+            "favorite": true
+        },
+        {
+            "id": 2,
+            "userId": 1,
+            "gameId": 85450,
+            "favorite": true
+        },
+        {
+            "id": 3,
+            "userId": 2,
+            "gameId": 1942,
+            "favorite": true
+        }
+    ]
+}
