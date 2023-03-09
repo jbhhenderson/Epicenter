@@ -30,7 +30,7 @@ export const ApplicationViews = () => {
             </>}/>
             <Route path="/addGame" element={
                 <AddGame />}/>
-            <Route path="/gameInfo" element={
+            <Route path="/gameInfo/:gameId" element={
                 <GameInfo />}/>
             <Route path="/myGames" element={
                 <MyGames />}/>
