@@ -1,6 +1,7 @@
 import { Outlet, Route, Routes } from "react-router-dom"
 import { AddGame } from "../games/AddGame"
 import { GameInfo } from "../games/GameInfo"
+import { MyFavorites } from "../games/MyFavorites"
 import { MyGames } from "../games/MyGames"
 import { TopGames } from "../games/TopGames"
 
@@ -34,6 +35,8 @@ export const ApplicationViews = () => {
                 <GameInfo />}/>
             <Route path="/myGames" element={
                 <MyGames />}/>
+            <Route path="/myFavorites" element={
+                <MyFavorites />}/>
             <Route path="/topGames" element={
                 <TopGames /> 
             } />

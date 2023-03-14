@@ -41,4 +41,23 @@ export const getSimilarGames = (game) => {
     .then(response => response.json())
 }
 
+export const getSearchedGames = (searchTerms) => {
+    var myHeaders = new Headers();
+myHeaders.append("Client-ID", "8q34b6lw9gaiasmlzs1yypuvxo9t9n");
+myHeaders.append("Authorization", "Bearer g9nfc5vhchs92k5rckdbszftk0m0g0");
+myHeaders.append("withCredentials", "true");
+myHeaders.append("Origin", "localhost");
+myHeaders.append("Content-Type", "text/plain");
 
+var raw = `fields name, cover.url; search "${searchTerms}"; where version_parent = null; limit 50;`;
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+return fetch("http://localhost:8080/https://api.igdb.com/v4/games/", requestOptions)
+  .then(response => response.json())
+}
