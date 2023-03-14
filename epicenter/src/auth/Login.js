@@ -1,16 +1,17 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
-import { getUserEmail } from "../providers/ApiManager";
+import { getUserEmailAndPassword } from "../providers/ApiManager";
 
 export const Login = () => {
     const [email, set] = useState("")
+    const [password, setPassword] = useState("")
     const navigate = useNavigate()
 
     const handleLogin = (e) => {
         e.preventDefault()
 
-            getUserEmail(email)
+            getUserEmailAndPassword(email, password)
             .then(foundUsers => {
                 if (foundUsers.length === 1) {
                     const user = foundUsers[0]
@@ -39,6 +40,15 @@ export const Login = () => {
                             onChange={evt => set(evt.target.value)}
                             className="form-control"
                             placeholder="Email address"
+                            required autoFocus />
+                    </fieldset>
+                    <fieldset>
+                        <label htmlFor="inputPassword"> Password address </label>
+                        <input type="password"
+                            value={password}
+                            onChange={evt => setPassword(evt.target.value)}
+                            className="form-control"
+                            placeholder="Password"
                             required autoFocus />
                     </fieldset>
                     <fieldset>

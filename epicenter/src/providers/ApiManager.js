@@ -1,20 +1,20 @@
-export const getUserEmail = (email) => {
-    return fetch(`http://localhost:8088/users?email=${email}`)
+export const getUserEmailAndPassword = (email, password) => {
+    return fetch(`http://localhost:8088/users?email=${email}&password=${password}`)
         .then(res => res.json())
 }
 
-export const postNewUser = (customer) => {
+export const postNewUser = (user) => {
     return fetch("http://localhost:8088/users", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(customer)
+            body: JSON.stringify(user)
         })
 }
 
-export const getCustomerEmail = (customer) => {
-    return fetch(`http://localhost:8088/users?email=${customer.email}`)
+export const getUserEmailAndUsername = (user) => {
+    return fetch(`http://localhost:8088/users?email=${user.email}&username=${user.username}`)
             .then(res => res.json())
 }
 
@@ -47,4 +47,36 @@ export const getFavoritedGames = () => {
 export const getUsersGames = (userId) => {
     return fetch (`http://localhost:8088/libraryGames?userId=${userId}`)
     .then(res => res.json()) 
+}
+
+export const getUsersFavoritedGames = (userId) => {
+    return fetch(`http://localhost:8088/libraryGames?userId=${userId}&favorite=true`)
+    .then(res => res.json()) 
+}
+
+export const getMessagesByGame = (gameId) => {
+    return fetch(`http://localhost:8088/messages?gameId=${gameId}&_expand=user`)
+    .then(res => res.json()) 
+}
+
+export const addMessageByGame = (messageObj) => {
+    return fetch("http://localhost:8088/messages", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(messageObj)
+    })
+}
+
+export const removePost = (messageObj) => {
+    return fetch(`http://localhost:8088/messages/${messageObj.id}`, {
+        method: "DELETE"
+    })
+}
+
+export const removeGameFromUserLibrary = (libraryGame) => {
+    return fetch(`http://localhost:8088/libraryGames/${libraryGame.id}`, {
+        method: "DELETE"
+    })
 }

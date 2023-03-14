@@ -2,23 +2,21 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { changeLibraryGame } from "../providers/ApiManager"
 import { getGameById } from "../providers/GameProviders"
-import { getUsersGames } from "../providers/ApiManager"
-import { removeGameFromUserLibrary } from "../providers/ApiManager"
+import { getUsersFavoritedGames } from "../providers/ApiManager"
 
-export const MyGames = () => {
+export const MyFavorites = () => {
     const [games, setGames] = useState([])
     const [libraryGames, setLibraryGames] = useState([])
     
     const localEpicenterUser = localStorage.getItem("epicenter_user")
     const epicenterUserObject = JSON.parse(localEpicenterUser)
 
-
     useEffect(() => {
-        fetchUserGames()       
+        fetchUserFavorites()
     }, [])
 
-    const fetchUserGames = () => {
-        getUsersGames(epicenterUserObject.id)
+    const fetchUserFavorites = () => {
+        getUsersFavoritedGames(epicenterUserObject.id)
         .then((userGames) => {
             setLibraryGames(userGames)
             const newArray = []
@@ -33,12 +31,12 @@ export const MyGames = () => {
                     return arr.concat(e)
                 }))
             })
-        })
+        })  
     }
     
     const isFavorite = (gameObj) => {
         const foundGame = libraryGames.find((libraryGame) => gameObj.id === libraryGame.gameId)
-        return foundGame.favorite
+        return foundGame
     }
 
     const handleRemoveFavorite = (event, game) => {
@@ -48,35 +46,12 @@ export const MyGames = () => {
         foundGame.favorite = false
         changeLibraryGame(foundGame)
         .then(() => {
-            fetchUserGames()
+            fetchUserFavorites()
         })
-    }
-
-    const handleAddFavorite = (event, game) => {
-        event.preventDefault()
-
-        const foundGame = libraryGames.find((libraryGame) => game.id === libraryGame.gameId && epicenterUserObject.id === libraryGame.userId)
-        foundGame.favorite = true
-        changeLibraryGame(foundGame)
-        .then(() => {
-            fetchUserGames()
-        })
-
-    }
-
-    const handleRemoveGameFromList = (event, game) => {
-        event.preventDefault()
-
-        const foundGame = libraryGames.find((libraryGame) => game.id === libraryGame.gameId && epicenterUserObject.id === libraryGame.userId)
-        removeGameFromUserLibrary(foundGame)
-        .then(() => {
-            fetchUserGames()
-        })
-
     }
 
     return <>
-    <h1>My Games</h1>
+    <h1>My Favorites</h1>
     <Link to={'/addGame'} state={{
             games: games,
             user: epicenterUserObject
@@ -94,9 +69,8 @@ export const MyGames = () => {
                     }
                     {
                         isFavorite(game) ? <button onClick={(clickEvent) => handleRemoveFavorite(clickEvent, game)}>Remove from favorites</button>
-                        : <button onClick={(clickEvent) => handleAddFavorite(clickEvent, game)}>Add to favorites</button>
-                    }
-                    <button onClick={(clickEvent) => handleRemoveGameFromList(clickEvent, game)}>Remove Game From My Collection</button>                 
+                        : ""
+                    }                 
                 </li>
             })
         }
