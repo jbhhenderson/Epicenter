@@ -11,6 +11,12 @@
       "username": "CatInTheHat",
       "password": "BlueFish",
       "id": 2
+    },
+    {
+      "email": "hannah@gmail.com",
+      "username": "Hannah",
+      "password": "password",
+      "id": 3
     }
   ],
   "libraryGames": [
@@ -18,12 +24,12 @@
       "id": 3,
       "userId": 2,
       "gameId": 1942,
-      "favorite": false
+      "favorite": true
     },
     {
       "userId": 2,
       "gameId": 121,
-      "favorite": false,
+      "favorite": true,
       "id": 8
     },
     {
@@ -34,14 +40,8 @@
     },
     {
       "userId": 1,
-      "gameId": 472,
-      "favorite": true,
-      "id": 10
-    },
-    {
-      "userId": 1,
       "gameId": 119133,
-      "favorite": false,
+      "favorite": true,
       "id": 12
     },
     {
@@ -49,6 +49,30 @@
       "gameId": 533,
       "favorite": false,
       "id": 13
+    },
+    {
+      "userId": 3,
+      "gameId": 75341,
+      "favorite": false,
+      "id": 14
+    },
+    {
+      "userId": 1,
+      "gameId": 1164,
+      "favorite": false,
+      "id": 15
+    },
+    {
+      "userId": 1,
+      "gameId": 19164,
+      "favorite": false,
+      "id": 16
+    },
+    {
+      "userId": 1,
+      "gameId": 20,
+      "favorite": false,
+      "id": 17
     }
   ],
   "messages": [
@@ -58,6 +82,41 @@
       "text": "Test 2",
       "timestamp": "3/14/2023, 2:41:56 PM",
       "id": 2
+    },
+    {
+      "userId": 2,
+      "gameId": 1942,
+      "text": "One of my favorite games ever!",
+      "timestamp": "3/15/2023, 9:26:46 AM",
+      "id": 3
+    },
+    {
+      "userId": 1,
+      "gameId": 1942,
+      "text": "Test 3",
+      "timestamp": "3/15/2023, 10:26:51 AM",
+      "id": 4
+    },
+    {
+      "userId": 1,
+      "gameId": 1942,
+      "text": "I love this game!",
+      "timestamp": "3/17/2023, 1:49:17 PM",
+      "id": 5
+    },
+    {
+      "userId": 1,
+      "gameId": 19164,
+      "text": "This works quite well actually",
+      "timestamp": "3/17/2023, 3:31:23 PM",
+      "id": 8
+    },
+    {
+      "userId": 1,
+      "gameId": 20,
+      "text": "Hello",
+      "timestamp": "3/17/2023, 3:58:04 PM",
+      "id": 9
     }
   ]
 }
