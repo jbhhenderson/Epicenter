@@ -109,7 +109,7 @@ export const MyGames = () => {
         </div>
     </div>
     <div className="grid gap-12 grid-cols-4 pl-24 pb-5">
-    <div className="block relative max-w-sm rounded-lg bg-white shadow-lg dark:bg-neutral-400">
+    <div className="block flex flex-col max-w-sm rounded-lg bg-white shadow-lg dark:bg-neutral-400">
         
 
         <Link to={'/addGame'} state={{
@@ -117,21 +117,19 @@ export const MyGames = () => {
         user: epicenterUserObject
         }}>
         
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-50 h-50 pt-12 mx-auto ">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="pt-12 mx-auto ">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            {/* <svg fill="none" viewBox="0 0 24 24" className="w-6 h-6">
-                <path d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg> */}
+            
         </Link>
-        <div className="absolute bottom-0 w-full p-6 h-[167px] mt-18 h-full dark:bg-neutral-700 rounded-b-lg">
+        <div className="bottom-0 w-full p-6 h-[167px] mt-auto dark:bg-neutral-700 rounded-b-lg">
             <h5
                 className="mb-2 pb-1 text-xl font-medium leading-tight text-center text-neutral-800 dark:text-neutral-50 border-b-black border-b-2">
                 Add a Game
             </h5>
             <Link to={'/addGame'} state={{
-                games: games,
-                user: epicenterUserObject
+                    games: games,
+                    user: epicenterUserObject
                 }}>
                     <button className="inline-block rounded bg-primary px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow shadow-green-500 transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-green-300 focus:bg-primary-600 focus:shadow-green-300 focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-green-600">
                         Choose your next adventure
@@ -179,7 +177,48 @@ export const MyGames = () => {
     }
     </div>
     </div>
-:<div className={`bg-gray-300 pt-72px h-screen`}></div>
+:<div className={`bg-gray-300 pt-72px h-screen`}>
+
+<div className="mx-auto px-60 py-12">
+
+<div className="flex dark:bg-neutral-700 border border-gray-300 rounded-xl overflow-hidden justify-start">
+    
+    <div className="p-4">
+        <p className="text-4xl text-white border-b border-black w-full">Recently Added: None?</p>
+        <p className="text-md text-white mt-1 line-clamp-2"> You haven't added any games!
+        Click below to start building your collection!</p>                       
+    </div>                       
+</div>
+</div>
+    <div className="block mx-10 flex flex-col max-w-sm rounded-lg bg-white shadow-lg dark:bg-neutral-400">
+        
+
+        <Link to={'/addGame'} state={{
+            games: games,
+            user: epicenterUserObject
+        }}>
+        
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="pt-12 mx-auto ">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+           
+        </Link>
+        <div className="bottom-0 w-full p-6 h-[167px] mt-auto dark:bg-neutral-700 rounded-b-lg">
+            <h5
+                className="mb-2 pb-1 text-xl font-medium leading-tight text-center text-neutral-800 dark:text-neutral-50 border-b-black border-b-2">
+                Add a Game
+            </h5>
+            <Link to={'/addGame'} state={{
+                games: games,
+                user: epicenterUserObject
+                }}>
+                    <button className="inline-block rounded bg-primary px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow shadow-green-500 transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-green-300 focus:bg-primary-600 focus:shadow-green-300 focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-green-600">
+                        Choose your next adventure
+                    </button>
+                </Link>
+        </div>
+    </div>
+</div>
 }
     </div>
 }
