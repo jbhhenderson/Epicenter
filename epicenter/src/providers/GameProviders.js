@@ -6,7 +6,7 @@ export const getGameById = (gameId) => {
     myHeaders.append("Origin", "localhost");
     myHeaders.append("Content-Type", "text/plain");
 
-    var raw = `fields name, cover.url, genres.name, platforms.name, platforms.platform_logo.url, summary; where id = ${gameId};`;
+    var raw = `fields name, cover.url, rating, first_release_date, themes.name, websites.url, websites.category, genres.name, platforms.name, platforms.platform_logo.url, summary; where id = ${gameId};`;
 
     var requestOptions = {
     method: 'POST',
@@ -49,7 +49,7 @@ myHeaders.append("withCredentials", "true");
 myHeaders.append("Origin", "localhost");
 myHeaders.append("Content-Type", "text/plain");
 
-var raw = `fields name, cover.url; search "${searchTerms}"; where version_parent = null; limit 50;`;
+var raw = `fields name, cover.url; search "${searchTerms}"; where version_parent = null; limit 20;`;
 
 var requestOptions = {
   method: 'POST',

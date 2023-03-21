@@ -1,15 +1,22 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { getGameById } from "../providers/GameProviders"
 import { useNavigate } from "react-router-dom"
 import { addGameToCollection } from "../providers/ApiManager"
 import { getMessagesByGame } from "../providers/ApiManager"
 import { addMessageByGame } from "../providers/ApiManager"
 import { removePost } from "../providers/ApiManager"
+import { getUsersGames } from "../providers/ApiManager"
+import { removeGameFromUserLibrary } from "../providers/ApiManager"
+import { Reviews } from "./Reviews"
+
 
 export const GameInfo = () => {
     const {gameId} = useParams()
     const [game, setGame] = useState([])
+    const [libraryGames, setLibraryGames] = useState([])
+    const [releaseDate, setReleaseDate] = useState("")
     const [gameMessages, setGameMessages] = useState([])
     const [messageText, setMessageText] = useState("")
 
@@ -19,12 +26,23 @@ export const GameInfo = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
+        loadGamePage()
+    }, [])
+
+    const loadGamePage = () => {
         getGameById(gameId)
         .then((data) => { 
             setGame(data[0])
+            const gameDate = new Date(data[0].first_release_date*1000).toLocaleDateString()
+            console.log(gameDate)
+            setReleaseDate(gameDate)
         })
         fetchMessages()
-    }, [])
+        getUsersGames(epicenterUserObject.id)
+        .then((userGames) => {
+            setLibraryGames(userGames)
+        })
+    }
 
     const fetchMessages = () => {
         getMessagesByGame(gameId)
@@ -47,6 +65,16 @@ export const GameInfo = () => {
         addGameToCollection(gameToSendToAPI)
         .then(() => {
             navigate("/myGames")
+        })
+    }
+
+    const handleRemoveGameFromList = (event) => {
+        event.preventDefault()
+
+        const foundGame = libraryGames.find((libraryGame) => game.id === libraryGame.gameId && epicenterUserObject.id === libraryGame.userId)
+        removeGameFromUserLibrary(foundGame)
+        .then(() => {
+            loadGamePage()
         })
     }
 
@@ -75,6 +103,18 @@ export const GameInfo = () => {
         })
     }
 
+    const isGameAdded = () => {
+        const foundGame = libraryGames.find((libraryGame) => libraryGame.gameId === parseInt(gameId) && epicenterUserObject.id === libraryGame.userId)
+
+        if(foundGame) {
+            return <button className="mt-32 ml-20 inline-block rounded bg-primary px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow shadow-red-500 transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-red-300 focus:bg-primary-600 focus:shadow-red-300 focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-green-600" 
+            onClick={(clickEvent) => handleRemoveGameFromList(clickEvent)}>Remove this game from my Collection</button>
+        } else {
+            return <button className="mt-32 ml-20 inline-block rounded bg-primary px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow shadow-green-500 transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-green-300 focus:bg-primary-600 focus:shadow-green-300 focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-green-600" 
+            onClick={(clickEvent) => handleAddGameButton(clickEvent)}>Add this game to my Collection</button>
+        }
+    }
+
     return <>
     <div className="bg-gray-300 pt-72px h-full flex">
     {
@@ -89,13 +129,24 @@ export const GameInfo = () => {
                         game.summary ? <div className="mx-20 my-6">Summary: {game.summary}</div>
                         :""
                     }
-                <div className="grid grid-cols-2 ml-20">
+                <div className="grid grid-cols-2 p-4 rounded-lg mx-20 dark:bg-neutral-500">
+                <div>Release Date: {releaseDate}</div>
+                <div className="grid grid-cols-2">
                 {
                     game.genres ? <ul className="">Genres: {game.genres.map((genre) => {
                         return <li key={genre.id}>{genre.name}</li>
                     })}</ul>
                     :""
                 }
+                {
+                    game.themes ? <ul> Themes: {game.themes.map((theme) => {
+                        return <li key={theme.id}>{theme.name}</li>
+                    })}
+
+                    </ul>
+                    :""
+                }
+                </div>
                 {
                     game.platforms ? <ul>Platforms: {game.platforms.map((platform) => {
                         return <li key={platform.id}>
@@ -106,9 +157,63 @@ export const GameInfo = () => {
                     })}</ul>
                     :""
                 }
+                {
+                    game.websites ? <ul className="pt-4 grid grid-cols-2"> Game Links:
+                        {
+                            game.websites.map(website => {
+                                let websiteType = ""
+                                if(website.category === 1) {
+                                    websiteType = "Official Website"
+                                } else if (website.category === 2) {
+                                    websiteType = "Wikia"
+                                } else if (website.category === 3) {
+                                    websiteType = "Wikipedia"
+                                } else if (website.category === 4) {
+                                    websiteType = "Facebook"
+                                } else if (website.category === 5) {
+                                    websiteType = "Twitter"
+                                } else if (website.category === 6) {
+                                    websiteType = "Twitch"
+                                } else if (website.category === 8) {
+                                    websiteType = "Instagram"
+                                } else if (website.category === 9) {
+                                    websiteType = "YouTube"
+                                } else if (website.category === 10) {
+                                    websiteType = "iPhone AppStore"
+                                } else if (website.category === 11) {
+                                    websiteType = "iPad AppStore"
+                                } else if (website.category === 12) {
+                                    websiteType = "Android Store"
+                                } else if (website.category === 13) {
+                                    websiteType = "Steam"
+                                } else if (website.category === 14) {
+                                    websiteType = "Reddit"
+                                } else if (website.category === 15) {
+                                    websiteType = "Itch"
+                                } else if (website.category === 16) {
+                                    websiteType = "EpicGames"
+                                } else if (website.category === 17) {
+                                    websiteType = "GOG"
+                                } else if (website.category === 18) {
+                                    websiteType = "Discord"
+                                }
+                                return <li key={website.category} className="transition ease-out duration-500 dark:hover:text-green-500">
+                                    <Link to={website.url}>{websiteType}</Link>
+                                </li>
+                            })
+                        }
+                    </ul>
+                    : ""
+                }
                 </div>
-                <button className="absolute bottom-20 ml-20 inline-block rounded bg-primary px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow shadow-green-500 transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-green-300 focus:bg-primary-600 focus:shadow-green-300 focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-green-600" 
-                onClick={(clickEvent) => handleAddGameButton(clickEvent)}>Add this game to my Collection</button>
+                <div className="flex justify-end">
+                    <div>
+                    {isGameAdded()}
+
+                    </div>
+                    {Reviews()}
+                </div>
+
             </div>
         </>
         :""

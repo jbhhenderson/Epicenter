@@ -4,16 +4,14 @@ import { GameInfo } from "../games/GameInfo"
 import { MyFavorites } from "../games/MyFavorites"
 import { MyGames } from "../games/MyGames"
 import { TopGames } from "../games/TopGames"
+import { HomepageNews } from "../news/HomepageNews"
 
 export const ApplicationViews = () => {
     return <>
         <Routes>
         <Route path="/" element={
             <>
-            <main className="image w-100 h-screen bg-no-repeat margin-auto bg-cover">
-            <div className=""> 
-                </div>
-           </main>
+            <HomepageNews />
             <Outlet />
 
 
@@ -31,6 +29,8 @@ export const ApplicationViews = () => {
             </>}/>
             <Route path="/addGame" element={
                 <AddGame />}/>
+            <Route path="/news" element={
+                <HomepageNews />}/>
             <Route path="/gameInfo/:gameId" element={
                 <GameInfo />}/>
             <Route path="/myGames" element={

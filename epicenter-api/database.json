@@ -17,6 +17,18 @@
       "username": "Hannah",
       "password": "password",
       "id": 3
+    },
+    {
+      "email": "clifford@gmail.com",
+      "username": "BigRedDog",
+      "password": "password",
+      "id": 4
+    },
+    {
+      "email": "vision@gmail.com",
+      "username": "visionfiller",
+      "password": "password",
+      "id": 5
     }
   ],
   "libraryGames": [
@@ -31,12 +43,6 @@
       "gameId": 121,
       "favorite": true,
       "id": 8
-    },
-    {
-      "userId": 1,
-      "gameId": 1942,
-      "favorite": true,
-      "id": 9
     },
     {
       "userId": 1,
@@ -73,6 +79,42 @@
       "gameId": 20,
       "favorite": false,
       "id": 17
+    },
+    {
+      "userId": 5,
+      "gameId": 109462,
+      "favorite": false,
+      "id": 19
+    },
+    {
+      "userId": 5,
+      "gameId": 117717,
+      "favorite": false,
+      "id": 20
+    },
+    {
+      "userId": 1,
+      "gameId": 25657,
+      "favorite": true,
+      "id": 21
+    },
+    {
+      "userId": 1,
+      "gameId": 2903,
+      "favorite": false,
+      "id": 22
+    },
+    {
+      "userId": 1,
+      "gameId": 1942,
+      "favorite": false,
+      "id": 23
+    },
+    {
+      "userId": 1,
+      "gameId": 7348,
+      "favorite": false,
+      "id": 24
     }
   ],
   "messages": [
@@ -118,5 +160,8 @@
       "timestamp": "3/17/2023, 3:58:04 PM",
       "id": 9
     }
+  ],
+  "reviews": [
+
   ]
 }
