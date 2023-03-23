@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { Link } from "react-router-dom"
 import { getGameById } from "../providers/GameProviders"
 import { useNavigate } from "react-router-dom"
 import { addGameToCollection } from "../providers/ApiManager"
@@ -9,7 +8,12 @@ import { addMessageByGame } from "../providers/ApiManager"
 import { removePost } from "../providers/ApiManager"
 import { getUsersGames } from "../providers/ApiManager"
 import { removeGameFromUserLibrary } from "../providers/ApiManager"
-import { Reviews } from "./Reviews"
+import { GameWebsites } from "./GameWebsites"
+import { ReviewBars } from "./ReviewsBars"
+import { getReviewsByGameId } from "../providers/ApiManager"
+import { removeReview } from "../providers/ApiManager"
+import { addReviewByGame } from "../providers/ApiManager"
+import { StarAmount } from "./StarAmount"
 
 
 export const GameInfo = () => {
@@ -19,6 +23,15 @@ export const GameInfo = () => {
     const [releaseDate, setReleaseDate] = useState("")
     const [gameMessages, setGameMessages] = useState([])
     const [messageText, setMessageText] = useState("")
+    const [reviews, setReviews] = useState([])
+    const [reviewText, setReviewText] = useState("")
+    const [reviewScore, setReviewScore] = useState("")
+    const [starColorFive, setStarColorFive] = useState("text-neutral-500")
+    const [starColorFour, setStarColorFour] = useState("text-neutral-500")
+    const [starColorThree, setStarColorThree] = useState("text-neutral-500")
+    const [starColorTwo, setStarColorTwo] = useState("text-neutral-500")
+    const [starColorOne, setStarColorOne] = useState("text-neutral-500")
+
 
     const localEpicenterUser = localStorage.getItem("epicenter_user")
     const epicenterUserObject = JSON.parse(localEpicenterUser)
@@ -34,7 +47,6 @@ export const GameInfo = () => {
         .then((data) => { 
             setGame(data[0])
             const gameDate = new Date(data[0].first_release_date*1000).toLocaleDateString()
-            console.log(gameDate)
             setReleaseDate(gameDate)
         })
         fetchMessages()
@@ -42,6 +54,7 @@ export const GameInfo = () => {
         .then((userGames) => {
             setLibraryGames(userGames)
         })
+        fetchReviews()
     }
 
     const fetchMessages = () => {
@@ -49,6 +62,15 @@ export const GameInfo = () => {
         .then((messages) => {
             if (messages.length) {
                 setGameMessages(messages)
+            }
+        })
+    }
+
+    const fetchReviews = () => {
+        getReviewsByGameId(gameId)
+        .then((foundReviews) => {
+            if (foundReviews.length) {
+                setReviews(foundReviews)
             }
         })
     }
@@ -103,6 +125,72 @@ export const GameInfo = () => {
         })
     }
 
+    const handleSubmitReview = (event) => {
+        event.preventDefault()
+
+        const reviewToSendToAPI = {
+            userId: epicenterUserObject.id,
+            gameId: parseInt(gameId),
+            text: reviewText,
+            score: parseInt(reviewScore),
+            timestamp: new Date().toLocaleString()
+        }
+
+        addReviewByGame(reviewToSendToAPI)
+        .then(() => {
+            fetchReviews()
+        })
+    }
+
+    const handleDeleteReview = (event, review) => {
+        event.preventDefault()
+
+        removeReview(review)
+        .then(() => {
+            fetchReviews()
+        })
+    }
+
+    const handleSetStarValue = (event, score) => {
+        event.preventDefault()
+        const greenStar = "text-green-500"
+        const grayStar = "text-neutral-500"
+
+        if (score === 5) {
+            setStarColorFive(greenStar)
+            setStarColorFour(greenStar)
+            setStarColorThree(greenStar)
+            setStarColorTwo(greenStar)
+            setStarColorOne(greenStar)
+        } else if (score === 4) {
+            setStarColorFive(grayStar)
+            setStarColorFour(greenStar)
+            setStarColorThree(greenStar)
+            setStarColorTwo(greenStar)
+            setStarColorOne(greenStar)
+        } else if (score === 3) {
+            setStarColorFive(grayStar)
+            setStarColorFour(grayStar)
+            setStarColorThree(greenStar)
+            setStarColorTwo(greenStar)
+            setStarColorOne(greenStar)
+        } else if (score === 2) {
+            setStarColorFive(grayStar)
+            setStarColorFour(grayStar)
+            setStarColorThree(grayStar)
+            setStarColorTwo(greenStar)
+            setStarColorOne(greenStar)
+        } else if (score === 1) {
+            setStarColorFive(grayStar)
+            setStarColorFour(grayStar)
+            setStarColorThree(grayStar)
+            setStarColorTwo(grayStar)
+            setStarColorOne(greenStar)
+        }
+
+        setReviewScore(score)
+    }
+
     const isGameAdded = () => {
         const foundGame = libraryGames.find((libraryGame) => libraryGame.gameId === parseInt(gameId) && epicenterUserObject.id === libraryGame.userId)
 
@@ -116,7 +204,7 @@ export const GameInfo = () => {
     }
 
     return <>
-    <div className="bg-gray-300 pt-72px h-full flex">
+    <div className="bg-gray-300 pt-72px flex">
     {
         game ? <>
             {
@@ -161,45 +249,7 @@ export const GameInfo = () => {
                     game.websites ? <ul className="pt-4 grid grid-cols-2"> Game Links:
                         {
                             game.websites.map(website => {
-                                let websiteType = ""
-                                if(website.category === 1) {
-                                    websiteType = "Official Website"
-                                } else if (website.category === 2) {
-                                    websiteType = "Wikia"
-                                } else if (website.category === 3) {
-                                    websiteType = "Wikipedia"
-                                } else if (website.category === 4) {
-                                    websiteType = "Facebook"
-                                } else if (website.category === 5) {
-                                    websiteType = "Twitter"
-                                } else if (website.category === 6) {
-                                    websiteType = "Twitch"
-                                } else if (website.category === 8) {
-                                    websiteType = "Instagram"
-                                } else if (website.category === 9) {
-                                    websiteType = "YouTube"
-                                } else if (website.category === 10) {
-                                    websiteType = "iPhone AppStore"
-                                } else if (website.category === 11) {
-                                    websiteType = "iPad AppStore"
-                                } else if (website.category === 12) {
-                                    websiteType = "Android Store"
-                                } else if (website.category === 13) {
-                                    websiteType = "Steam"
-                                } else if (website.category === 14) {
-                                    websiteType = "Reddit"
-                                } else if (website.category === 15) {
-                                    websiteType = "Itch"
-                                } else if (website.category === 16) {
-                                    websiteType = "EpicGames"
-                                } else if (website.category === 17) {
-                                    websiteType = "GOG"
-                                } else if (website.category === 18) {
-                                    websiteType = "Discord"
-                                }
-                                return <li key={website.category} className="transition ease-out duration-500 dark:hover:text-green-500">
-                                    <Link to={website.url}>{websiteType}</Link>
-                                </li>
+                               return GameWebsites(website)
                             })
                         }
                     </ul>
@@ -211,7 +261,7 @@ export const GameInfo = () => {
                     {isGameAdded()}
 
                     </div>
-                    {Reviews()}
+                    {ReviewBars(gameId)}
                 </div>
 
             </div>
@@ -219,39 +269,82 @@ export const GameInfo = () => {
         :""
     }
     </div>
-    <div className="bg-gray-300 pt-72px pl-10 pb-28 h-full">
-    <h1 className="text-4xl mb-10">Chat About This Game</h1>
-    {
-        gameMessages ? <ul>
+    <div className="flex bg-gray-300 pt-72px pl-10 pb-28 h-full">
+        <div className="w-1/3 bg-neutral-500 p-4 rounded-lg">
+            <h1 className="text-4xl text-white mb-10">Chat About This Game</h1>
             {
-                gameMessages.map((message) => {
-                    return <li key={message.id} className="relative dark:bg-neutral-700 text-white rounded-lg w-1/3 mb-6">
-                        <p className="p-2">Posted by: {message.user.username}</p>
-                        <p className="dark:bg-neutral-600 px-2">{message.text}</p>
-                        <p className="dark:bg-neutral-600 px-2 rounded-b">{(message.timestamp)}</p>
-                        {
-                            epicenterUserObject.id === message.userId ? <button className="absolute top-1 right-1 p-1 bg-red-600 rounded" onClick={(clickEvent) => handleDeletePost(clickEvent, message)}>Delete Post</button>
-                            : ""
+                gameMessages ? <ul>
+                    {
+                        gameMessages.map((message) => {
+                            return <li key={message.id} className="relative dark:bg-neutral-700 text-white rounded-lg mb-6">
+                                <p className="p-2">Posted by: {message.user.username}</p>
+                                <p className="dark:bg-neutral-600 px-2">{message.text}</p>
+                                <p className="dark:bg-neutral-600 px-2 rounded-b">{(message.timestamp)}</p>
+                                {
+                                    epicenterUserObject.id === message.userId ? <button className="absolute top-1 right-1 p-1 bg-red-600 rounded" onClick={(clickEvent) => handleDeletePost(clickEvent, message)}>Delete Post</button>
+                                    : ""
+                                }
+                            </li>
+                        })
+                    }
+                </ul>
+                : <div className={`bg-gray-300 h-screen`}>"</div>
+            }
+                <div className="mt-6">
+                    <textarea className="block p-4 h-24 w-full text-gray-900 border border-gray-300 rounded-t-lg bg-gray-300 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-neutral-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        onChange={
+                            (changeEvent) => {
+                                setMessageText(changeEvent.target.value)
+                            }
                         }
-                    </li>
-                })
-            }
-        </ul>
-        : <div className={`bg-gray-300 h-screen`}>"</div>
-    }
-        <div className="mt-6">
-        <textarea className="block w-1/3 p-4 h-24 text-gray-900 border border-gray-300 rounded-t-lg bg-gray-300 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-neutral-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            onChange={
-                (changeEvent) => {
-                    setMessageText(changeEvent.target.value)
-                }
-            }
-        type="text" placeholder="Join the conversation" />
-        <div className="dark:bg-neutral-700 w-1/3 rounded-b h-10 relative">
-            <button className=" absolute bottom-1 left p-1 ml-4 bg-green-500 rounded" onClick={(clickEvent) => handleSubmitPost(clickEvent)}>Submit Post</button>
+                    type="text" placeholder="Join the conversation" />
+                <div className="dark:bg-neutral-700 rounded-b h-10 relative">
+                    <button className=" absolute bottom-1 left p-1 ml-4 bg-green-500 rounded" onClick={(clickEvent) => handleSubmitPost(clickEvent)}>Submit Post</button>
+                </div>
+            </div>
         </div>
-    </div>
-
+        <div className="w-1/3 ml-64 bg-neutral-500 p-4 rounded-lg">
+            <h1 className="text-4xl mb-10">Reviews</h1>
+            {
+                reviews ? <ul>
+                    {
+                        reviews.map((review) => {
+                            return <li key={review.id} className="relative dark:bg-neutral-700 text-white w-full rounded-lg mb-6">
+                                        <div className="p-2">Review by: {review.user.username} {StarAmount(review)}</div>
+                                        <p className="dark:bg-neutral-600 px-2">{review.text}</p>
+                                        <p className="dark:bg-neutral-600 px-2 rounded-b">{(review.timestamp)}</p>
+                                        {
+                                            epicenterUserObject.id === review.userId ? <button className="absolute top-1 right-1 p-1 bg-red-600 rounded" onClick={(clickEvent) => handleDeleteReview(clickEvent, review)}>Delete Review</button>
+                                            : ""
+                                        }
+                                    </li>
+                        })
+                    }
+                </ul>
+                : ""
+            }
+            <div className="mt-6 w-full">
+                <textarea className="block p-4 h-24 w-full text-gray-900 border border-gray-300 rounded-t-lg bg-gray-300 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-neutral-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    onChange={
+                        (changeEvent) => {
+                            setReviewText(changeEvent.target.value)
+                        }
+                    }
+                type="text" placeholder="What are your thoughts on this game?" />
+                <div className="dark:bg-neutral-700 rounded-b h-10 relative">
+                    <div className="flex flex-row-reverse">
+                        <i className="flex flex-row-reverse bg-neutral-800 rounded-lg px-1 w-20 mx-2 mt-2">        
+                            <svg aria-hidden="true" className={`w-5 h-5 ${starColorFive} peer peer-hover:text-green-500 hover:text-green-500 focus:text-green-500`} onClick={(clickEvent) => handleSetStarValue(clickEvent, 5)} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Perfect</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg aria-hidden="true" className={`w-5 h-5 ${starColorFour} peer peer-hover:text-green-500 hover:text-green-500 focus:text-green-500`} onClick={(clickEvent) => handleSetStarValue(clickEvent, 4)} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Great</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg aria-hidden="true" className={`w-5 h-5 ${starColorThree} peer peer-hover:text-green-500 hover:text-green-500 focus:text-green-500`} onClick={(clickEvent) => handleSetStarValue(clickEvent, 3)} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Average</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg aria-hidden="true" className={`w-5 h-5 ${starColorTwo} peer peer-hover:text-green-500 hover:text-green-500 focus:text-green-500`} onClick={(clickEvent) => handleSetStarValue(clickEvent, 2)} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Not For Me</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <svg aria-hidden="true" className={`w-5 h-5 ${starColorOne} peer peer-hover:text-green-500 hover:text-green-500 focus:text-green-500`} onClick={(clickEvent) => handleSetStarValue(clickEvent, 1)} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Unplayable</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        </i>
+                    </div> 
+                    <button className=" absolute bottom-1 left- p-1 ml-4 bg-green-500 rounded" onClick={(clickEvent) => handleSubmitReview(clickEvent)}>Submit Review</button>
+                </div>
+            </div>
+        </div>
     </div>
     </>
 }

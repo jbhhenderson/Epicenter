@@ -45,18 +45,6 @@
       "id": 8
     },
     {
-      "userId": 1,
-      "gameId": 119133,
-      "favorite": true,
-      "id": 12
-    },
-    {
-      "userId": 1,
-      "gameId": 533,
-      "favorite": false,
-      "id": 13
-    },
-    {
       "userId": 3,
       "gameId": 75341,
       "favorite": false,
@@ -115,6 +103,18 @@
       "gameId": 7348,
       "favorite": false,
       "id": 24
+    },
+    {
+      "userId": 1,
+      "gameId": 533,
+      "favorite": false,
+      "id": 25
+    },
+    {
+      "userId": 1,
+      "gameId": 1887,
+      "favorite": false,
+      "id": 26
     }
   ],
   "messages": [
@@ -162,6 +162,53 @@
     }
   ],
   "reviews": [
-
+    {
+      "id": 1,
+      "userId": 1,
+      "gameId": 1942,
+      "text": "Good Game",
+      "timestamp": "3/17/2023, 3:58:04 PM",
+      "score": 5
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "gameId": 1942,
+      "text": "Decent but not my favorite",
+      "timestamp": "3/17/2023, 3:31:23 PM",
+      "score": 3
+    },
+    {
+      "userId": 1,
+      "gameId": 1942,
+      "text": "Bad",
+      "score": 1,
+      "timestamp": "3/23/2023, 3:08:08 PM",
+      "id": 3
+    },
+    {
+      "userId": 1,
+      "gameId": 1942,
+      "text": "Perfect",
+      "score": 5,
+      "timestamp": "3/23/2023, 3:09:27 PM",
+      "id": 4
+    },
+    {
+      "userId": 1,
+      "gameId": 1942,
+      "text": "Awful",
+      "score": 1,
+      "timestamp": "3/23/2023, 3:10:47 PM",
+      "id": 5
+    },
+    {
+      "userId": 1,
+      "gameId": 1942,
+      "text": "Good",
+      "score": 4,
+      "timestamp": "3/23/2023, 3:23:32 PM",
+      "id": 6
+    }
   ]
 }

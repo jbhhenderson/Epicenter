@@ -80,3 +80,24 @@ export const removeGameFromUserLibrary = (libraryGame) => {
         method: "DELETE"
     })
 }
+
+export const getReviewsByGameId = (gameId) => {
+    return fetch(`http://localhost:8088/reviews?gameId=${gameId}&_expand=user`)
+    .then(res => res.json()) 
+}
+
+export const addReviewByGame = (reviewObj) => {
+    return fetch("http://localhost:8088/reviews", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(reviewObj)
+    })
+}
+
+export const removeReview = (reviewObj) => {
+    return fetch(`http://localhost:8088/reviews/${reviewObj.id}`, {
+        method: "DELETE"
+    })
+}
