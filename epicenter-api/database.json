@@ -29,6 +29,12 @@
       "username": "visionfiller",
       "password": "password",
       "id": 5
+    },
+    {
+      "email": "scoob@gmail.com",
+      "username": "RuhRoh",
+      "password": "password",
+      "id": 6
     }
   ],
   "libraryGames": [
@@ -59,13 +65,13 @@
     {
       "userId": 1,
       "gameId": 19164,
-      "favorite": false,
+      "favorite": true,
       "id": 16
     },
     {
       "userId": 1,
       "gameId": 20,
-      "favorite": false,
+      "favorite": true,
       "id": 17
     },
     {
@@ -88,14 +94,8 @@
     },
     {
       "userId": 1,
-      "gameId": 2903,
-      "favorite": false,
-      "id": 22
-    },
-    {
-      "userId": 1,
       "gameId": 1942,
-      "favorite": false,
+      "favorite": true,
       "id": 23
     },
     {
@@ -115,6 +115,24 @@
       "gameId": 1887,
       "favorite": false,
       "id": 26
+    },
+    {
+      "userId": 6,
+      "gameId": 85996,
+      "favorite": true,
+      "id": 27
+    },
+    {
+      "userId": 6,
+      "gameId": 126459,
+      "favorite": false,
+      "id": 28
+    },
+    {
+      "userId": 6,
+      "gameId": 103298,
+      "favorite": false,
+      "id": 29
     }
   ],
   "messages": [
@@ -159,6 +177,13 @@
       "text": "Hello",
       "timestamp": "3/17/2023, 3:58:04 PM",
       "id": 9
+    },
+    {
+      "userId": 1,
+      "gameId": 7348,
+      "text": "Hey this game is awesome",
+      "timestamp": "3/24/2023, 3:17:25 PM",
+      "id": 10
     }
   ],
   "reviews": [
@@ -177,22 +202,6 @@
       "text": "Decent but not my favorite",
       "timestamp": "3/17/2023, 3:31:23 PM",
       "score": 3
-    },
-    {
-      "userId": 1,
-      "gameId": 1942,
-      "text": "Bad",
-      "score": 1,
-      "timestamp": "3/23/2023, 3:08:08 PM",
-      "id": 3
-    },
-    {
-      "userId": 1,
-      "gameId": 1942,
-      "text": "Perfect",
-      "score": 5,
-      "timestamp": "3/23/2023, 3:09:27 PM",
-      "id": 4
     },
     {
       "userId": 1,

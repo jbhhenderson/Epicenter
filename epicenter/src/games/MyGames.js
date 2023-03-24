@@ -94,7 +94,7 @@ export const MyGames = () => {
         games.length ? <div className={`bg-gray-300 pt-72px h-full`}>
     <div className="mx-auto px-60 py-12">
 
-        <div className="flex dark:bg-neutral-700 border border-gray-300 rounded-xl overflow-hidden justify-start">
+        <div className="flex dark:bg-neutral-700 border shadow-lg shadow-neutral-700 border-green-300 rounded-xl overflow-hidden justify-start">
             <div className="relative w-60 h-60 flex-shrink-0">
                 <div className="left-0 top-0 w-full h-full flex items-center justify-center">
                 <a href={`http://localhost:3000/gameInfo/${recentlyAdded[0].id}`}>
@@ -109,7 +109,7 @@ export const MyGames = () => {
         </div>
     </div>
     <div className="grid gap-12 grid-cols-4 pl-24 pb-5">
-    <div className="block flex flex-col max-w-sm rounded-lg bg-white shadow-lg dark:bg-neutral-400">
+    <div className="block flex flex-col max-w-sm rounded-lg bg-white shadow-lg shadow-neutral-700 dark:bg-neutral-400">
         
 
         <Link to={'/addGame'} state={{
@@ -140,7 +140,7 @@ export const MyGames = () => {
     {
         games.map(game => {
             return <div
-            className="block relative max-w-sm rounded-lg bg-white shadow-lg dark:bg-neutral-700" key={game.id}>
+            className="block relative max-w-sm rounded-lg bg-white shadow-lg shadow-neutral-700 dark:bg-neutral-700" key={game.id}>
                 <a href={`http://localhost:3000/gameInfo/${game.id}`}>
                     {
                         game.cover?.url ? <img src={game.cover.url.replace("thumb", "720p")} loading="lazy" className="rounded-t-lg" alt=""/>

@@ -130,7 +130,7 @@ export const ReviewBars = (gameId) => {
     </div>
     }
 
-    return <div className="w-1/2 ml-64 mr-20 mt-4 rounded-lg p-2 bg-neutral-800">              
+    return <div className="w-1/2 ml-64 mr-20 my-4 rounded-lg p-2 bg-neutral-800">              
     {stars}
     <p className="text-sm font-medium text-neutral-500 dark:text-neutral-400">{totalReviews} reviews</p>
     <div className="flex items-center mt-4">

@@ -68,7 +68,7 @@ export const TopGames = () => {
     {
         topTenGames.map((game) => {return<li key={game.id}>
             <div className="mx-auto px-60 py-12">
-                <div className="flex dark:bg-neutral-700 border border-gray-300 rounded-xl overflow-hidden justify-start">
+                <div className="flex dark:bg-neutral-700 border shadow-lg shadow-neutral-700 border-green-300 rounded-xl overflow-hidden justify-start">
                     <div className="relative w-60 h-60 flex-shrink-0">
                         <div className="left-0 top-0 w-full h-full flex items-center justify-center">
                         <Link to={`/gameInfo/${game.id}`}>

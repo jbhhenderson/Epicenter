@@ -32,7 +32,7 @@ export const NavBar = () => {
         <p href="#" className={`block py-2 pl-3 pr-4 text-gray-600 transition ease-out duration-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-green-500  dark:hover:bg-neutral-700 dark:hover:text-green-500 md:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/topGames" ? "text-green-500" : "dark:text-white"}`}><Link to="/topGames">Top Games</Link></p>
       </li>
       <li>
-        <p href="#" className={`block py-2 pl-3 pr-4 text-gray-600 transition ease-out duration-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-green-500  dark:hover:bg-neutral-700 dark:hover:text-green-500 md:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/topGames" ? "text-green-500" : "dark:text-white"}`}><Link to="/news">News</Link></p>
+        <p href="#" className={`block py-2 pl-3 pr-4 text-gray-600 transition ease-out duration-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-green-500  dark:hover:bg-neutral-700 dark:hover:text-green-500 md:dark:hover:bg-transparent dark:border-gray-700 ${location.pathname === "/news" ? "text-green-500" : "dark:text-white"}`}><Link to="/news">News</Link></p>
       </li>
       
     </ul>

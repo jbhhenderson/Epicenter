@@ -17,13 +17,13 @@ export const HomepageNews = () => {
     }
 
     return <div className={` flex-col bg-gray-300 pt-72px h-full`}>
-        <div className="text-4xl w-2/3 rounded-lg ml-80 pb-3 mt-6 text-white text-center dark:bg-neutral-700 ">Stay Up To Date With What's Happening In The Gaming Sphere</div>
+        <div className="text-4xl w-2/3 rounded-lg ml-80 pb-3 shadow-md shadow-neutral-700 mt-6 text-white text-center dark:bg-neutral-700 ">Stay Up To Date With What's Happening In The Gaming Sphere</div>
         {
             newsArticles.map(article => {
                 if (article.description && article.content && article.urlToImage) {
                 return <div className="mx-auto px-60 py-6" key={article.title}>
 
-                <div className="flex dark:bg-neutral-700 border border-gray-300 rounded-xl overflow-hidden justify-start">
+                <div className="flex dark:bg-neutral-700 shadow-md shadow-neutral-700 rounded-xl overflow-hidden justify-start">
                     <div className="relative w-40 h-40 flex-shrink-0">
                         <div className="left-0 top-0 w-full h-full flex items-center justify-center">
                         <a href={article.url}>
