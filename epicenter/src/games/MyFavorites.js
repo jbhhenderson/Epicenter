@@ -67,7 +67,7 @@ export const MyFavorites = () => {
                 {
                     games.map(game => {
                         return <div
-                        className="block max-w-sm rounded-lg bg-white shadow-lg dark:bg-neutral-700" key={game.id}>
+                        className="block max-w-sm rounded-lg bg-white shadow-lg shadow-neutral-700 dark:bg-neutral-700" key={game.id}>
                         <a href={`http://localhost:3000/gameInfo/${game.id}`}>
                             {
                                 game.cover?.url ? <img src={game.cover.url.replace("thumb", "720p")} loading="lazy" className="rounded-t-lg" alt=""/>

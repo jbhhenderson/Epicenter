@@ -1,6 +1,7 @@
 import { Outlet, Route, Routes } from "react-router-dom"
 import { AddGame } from "../games/AddGame"
 import { GameInfo } from "../games/GameInfo"
+// import { Homepage } from "../games/Homepage"
 import { MyFavorites } from "../games/MyFavorites"
 import { MyGames } from "../games/MyGames"
 import { TopGames } from "../games/TopGames"
@@ -11,7 +12,7 @@ export const ApplicationViews = () => {
         <Routes>
         <Route path="/" element={
             <>
-            <HomepageNews />
+            <MyGames />
             <Outlet />
 
 

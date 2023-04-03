@@ -203,6 +203,43 @@ export const GameInfo = () => {
         }
     }
 
+    const hasReviewed = () => {
+        const foundReview = reviews.find((review) => review.gameId === parseInt(gameId) && epicenterUserObject.id === review.userId)
+
+        if (foundReview) {
+            return ""
+        } else {
+            return <div className="mt-6 w-full">
+            <textarea className="block p-4 h-24 w-full shadow-lg shadow-neutral-700 text-gray-900 border border-gray-300 rounded-t-lg bg-gray-300 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-neutral-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                onChange={
+                    (changeEvent) => {
+                        setReviewText(changeEvent.target.value)
+                    }
+                }
+            type="text" placeholder="What are your thoughts on this game?" />
+            <div className="dark:bg-neutral-700 rounded-b h-10 relative">
+                <div className="flex flex-row-reverse">
+                    <i className="flex flex-row-reverse bg-neutral-800 rounded-lg px-1 w-20 mx-2 mt-2">        
+                        <svg aria-hidden="true" className={`w-5 h-5 ${starColorFive} peer peer-hover:text-green-500 hover:text-green-500 focus:text-green-500`} onClick={(clickEvent) => handleSetStarValue(clickEvent, 5)} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Perfect</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg aria-hidden="true" className={`w-5 h-5 ${starColorFour} peer peer-hover:text-green-500 hover:text-green-500 focus:text-green-500`} onClick={(clickEvent) => handleSetStarValue(clickEvent, 4)} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Great</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg aria-hidden="true" className={`w-5 h-5 ${starColorThree} peer peer-hover:text-green-500 hover:text-green-500 focus:text-green-500`} onClick={(clickEvent) => handleSetStarValue(clickEvent, 3)} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Average</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg aria-hidden="true" className={`w-5 h-5 ${starColorTwo} peer peer-hover:text-green-500 hover:text-green-500 focus:text-green-500`} onClick={(clickEvent) => handleSetStarValue(clickEvent, 2)} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Not For Me</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        <svg aria-hidden="true" className={`w-5 h-5 ${starColorOne} peer peer-hover:text-green-500 hover:text-green-500 focus:text-green-500`} onClick={(clickEvent) => handleSetStarValue(clickEvent, 1)} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Unplayable</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    </i>
+                </div> 
+                <button className=" absolute bottom-1 left- p-1 ml-4 bg-green-500 rounded" onClick={(clickEvent) => handleSubmitReview(clickEvent)}>Submit Review</button>
+            </div>
+        </div>
+        }
+    }
+
+    const isFavorite = (gameObj) => {
+        const foundGame = libraryGames.find((libraryGame) => gameObj.id === libraryGame.gameId)
+        if (foundGame) {
+            return foundGame.favorite
+        }
+    }
+
     return <>
     <div className="bg-gray-300 pt-72px flex">
     {
@@ -211,7 +248,7 @@ export const GameInfo = () => {
                 game.cover?.url ? <img className="border border-black rounded ml-10 mt-4" src={game.cover.url.replace("thumb", "720p")} />
                 :<img className="w-28" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.istockphoto.com%2Fvectors%2Fno-image-available-sign-vector-id1138179183%3Fk%3D6%26m%3D1138179183%26s%3D612x612%26w%3D0%26h%3DprMYPP9mLRNpTp3XIykjeJJ8oCZRhb2iez6vKs8a8eE%3D&f=1&nofb=1&ipt=7727c264fde6fb0879a2b7b4ff990b45ce06dc0dd368db646c6be4f8356018b7&ipo=images" />
             }
-            <div className="relative mt-4 ml-8 dark:bg-neutral-700 text-white rounded-lg font-bold mr-4">
+            <div className="relative mt-4 ml-8 dark:bg-neutral-700 text-white rounded-lg shadow-lg shadow-neutral-700 font-bold mr-4">
                 <div className="text-7xl underline decoration-black decoration-2 underline-offset-8 text-center">{game.name}</div>
                     {
                         game.summary ? <div className="mx-20 my-6">Summary: {game.summary}</div>
@@ -270,13 +307,13 @@ export const GameInfo = () => {
     }
     </div>
     <div className="flex bg-gray-300 pt-72px pl-10 pb-28 h-full">
-        <div className="w-1/3 bg-neutral-500 p-4 rounded-lg">
-            <h1 className="text-4xl text-white mb-10">Chat About This Game</h1>
+        <div className="w-1/3 bg-neutral-500 p-4 shadow-lg shadow-neutral-700 rounded-lg">
+            <h1 className="text-4xl text-white  mb-10">Chat About This Game</h1>
             {
                 gameMessages ? <ul>
                     {
                         gameMessages.map((message) => {
-                            return <li key={message.id} className="relative dark:bg-neutral-700 text-white rounded-lg mb-6">
+                            return <li key={message.id} className="relative dark:bg-neutral-700 shadow-lg shadow-neutral-700 text-white rounded-lg mb-6">
                                 <p className="p-2">Posted by: {message.user.username}</p>
                                 <p className="dark:bg-neutral-600 px-2">{message.text}</p>
                                 <p className="dark:bg-neutral-600 px-2 rounded-b">{(message.timestamp)}</p>
@@ -290,7 +327,7 @@ export const GameInfo = () => {
                 </ul>
                 : <div className={`bg-gray-300 h-screen`}>"</div>
             }
-                <div className="mt-6">
+                <div className="mt-6 shadow-lg shadow-neutral-700">
                     <textarea className="block p-4 h-24 w-full text-gray-900 border border-gray-300 rounded-t-lg bg-gray-300 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-neutral-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         onChange={
                             (changeEvent) => {
@@ -299,17 +336,17 @@ export const GameInfo = () => {
                         }
                     type="text" placeholder="Join the conversation" />
                 <div className="dark:bg-neutral-700 rounded-b h-10 relative">
-                    <button className=" absolute bottom-1 left p-1 ml-4 bg-green-500 rounded" onClick={(clickEvent) => handleSubmitPost(clickEvent)}>Submit Post</button>
+                    <button className=" absolute bottom-1 text-white left p-1 ml-4 bg-green-500 rounded" onClick={(clickEvent) => handleSubmitPost(clickEvent)}>Submit Post</button>
                 </div>
             </div>
         </div>
-        <div className="w-1/3 ml-64 bg-neutral-500 p-4 rounded-lg">
+        <div className="w-1/3 ml-64 bg-neutral-500 text-white p-4 shadow-lg shadow-neutral-700 rounded-lg">
             <h1 className="text-4xl mb-10">Reviews</h1>
             {
                 reviews ? <ul>
                     {
                         reviews.map((review) => {
-                            return <li key={review.id} className="relative dark:bg-neutral-700 text-white w-full rounded-lg mb-6">
+                            return <li key={review.id} className="relative dark:bg-neutral-700 shadow-lg shadow-neutral-700 text-white w-full rounded-lg mb-6">
                                         <div className="p-2">Review by: {review.user.username} {StarAmount(review)}</div>
                                         <p className="dark:bg-neutral-600 px-2">{review.text}</p>
                                         <p className="dark:bg-neutral-600 px-2 rounded-b">{(review.timestamp)}</p>
@@ -323,27 +360,9 @@ export const GameInfo = () => {
                 </ul>
                 : ""
             }
-            <div className="mt-6 w-full">
-                <textarea className="block p-4 h-24 w-full text-gray-900 border border-gray-300 rounded-t-lg bg-gray-300 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-neutral-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    onChange={
-                        (changeEvent) => {
-                            setReviewText(changeEvent.target.value)
-                        }
-                    }
-                type="text" placeholder="What are your thoughts on this game?" />
-                <div className="dark:bg-neutral-700 rounded-b h-10 relative">
-                    <div className="flex flex-row-reverse">
-                        <i className="flex flex-row-reverse bg-neutral-800 rounded-lg px-1 w-20 mx-2 mt-2">        
-                            <svg aria-hidden="true" className={`w-5 h-5 ${starColorFive} peer peer-hover:text-green-500 hover:text-green-500 focus:text-green-500`} onClick={(clickEvent) => handleSetStarValue(clickEvent, 5)} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Perfect</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                            <svg aria-hidden="true" className={`w-5 h-5 ${starColorFour} peer peer-hover:text-green-500 hover:text-green-500 focus:text-green-500`} onClick={(clickEvent) => handleSetStarValue(clickEvent, 4)} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Great</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                            <svg aria-hidden="true" className={`w-5 h-5 ${starColorThree} peer peer-hover:text-green-500 hover:text-green-500 focus:text-green-500`} onClick={(clickEvent) => handleSetStarValue(clickEvent, 3)} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Average</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                            <svg aria-hidden="true" className={`w-5 h-5 ${starColorTwo} peer peer-hover:text-green-500 hover:text-green-500 focus:text-green-500`} onClick={(clickEvent) => handleSetStarValue(clickEvent, 2)} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Not For Me</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                            <svg aria-hidden="true" className={`w-5 h-5 ${starColorOne} peer peer-hover:text-green-500 hover:text-green-500 focus:text-green-500`} onClick={(clickEvent) => handleSetStarValue(clickEvent, 1)} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Unplayable</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                        </i>
-                    </div> 
-                    <button className=" absolute bottom-1 left- p-1 ml-4 bg-green-500 rounded" onClick={(clickEvent) => handleSubmitReview(clickEvent)}>Submit Review</button>
-                </div>
-            </div>
+        {
+            hasReviewed()
+        }    
         </div>
     </div>
     </>

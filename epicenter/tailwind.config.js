@@ -9,4 +9,7 @@ module.exports = {
     },
   },
   plugins: [],
+  safelist: [...Array(101).keys()].map((i) => `w-[${i}%]`)
+
+  
 }

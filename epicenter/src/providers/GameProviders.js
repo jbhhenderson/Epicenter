@@ -61,3 +61,47 @@ var requestOptions = {
 return fetch("http://localhost:8080/https://api.igdb.com/v4/games/", requestOptions)
   .then(response => response.json())
 }
+
+const today = Date.now()
+
+export const getUpcomingGames = () => {
+  var myHeaders = new Headers();
+  myHeaders.append("Client-ID", "8q34b6lw9gaiasmlzs1yypuvxo9t9n");
+  myHeaders.append("Authorization", "Bearer g9nfc5vhchs92k5rckdbszftk0m0g0");
+  myHeaders.append("withCredentials", "true");
+  myHeaders.append("Origin", "localhost");
+  myHeaders.append("Content-Type", "text/plain");
+  
+  var raw = `fields *, game.name, game.cover.url; where date > ${today} & platform = 6; sort date asc;`;
+  
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+  };
+  
+  return fetch("http://localhost:8080/https://api.igdb.com/v4/release_dates/", requestOptions)
+    .then(response => response.json())
+}
+
+export const getRecentReleases = () => {
+  var myHeaders = new Headers();
+  myHeaders.append("Client-ID", "8q34b6lw9gaiasmlzs1yypuvxo9t9n");
+  myHeaders.append("Authorization", "Bearer g9nfc5vhchs92k5rckdbszftk0m0g0");
+  myHeaders.append("withCredentials", "true");
+  myHeaders.append("Origin", "localhost");
+  myHeaders.append("Content-Type", "text/plain");
+  
+  var raw = `fields *, game.name, game.cover.url; where date < ${today} & platform = 6; sort date asc;`;
+  
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+  };
+  
+  return fetch("http://localhost:8080/https://api.igdb.com/v4/release_dates/", requestOptions)
+    .then(response => response.json())
+}
