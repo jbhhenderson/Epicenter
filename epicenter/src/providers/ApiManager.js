@@ -101,3 +101,8 @@ export const removeReview = (reviewObj) => {
         method: "DELETE"
     })
 }
+
+export const getUser = (userId) => {
+    return fetch(`http://localhost:8088/users/${userId}`)
+    .then(res => res.json()) 
+}
